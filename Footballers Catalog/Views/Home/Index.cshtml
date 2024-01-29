@@ -1,8 +1,18 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿
+@model IEnumerable<Footballer>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h2>Список футболистов</h2>
+<table class="table">
+     <tr><th>ID</th><th>Имя</th><th>Фамилия</th><th>Пол</th><th>Страна</th><th>Команда</th></tr>
+    @foreach (var item in Model)
+    {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                    <td>@item.Sex</td>
+                    <td>@item.Country</td>
+                    <td>@item.TeamName</td>
+                </tr>
+    }
+</table>

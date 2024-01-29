@@ -19,6 +19,13 @@
         public Sex Sex { get; set; }
         public Country Country { get; set; }
         public string TeamName { get; set; }
-
+        public Footballer(string firstName, string lastName, Sex sex, Country country, string teamName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Sex = sex;
+            Country = country;
+            TeamName = teamName;
+        }
     }
 }

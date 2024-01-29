@@ -1,5 +1,6 @@
 ﻿using Footballers_Catalog.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Footballers_Catalog.Controllers
@@ -11,13 +12,15 @@ namespace Footballers_Catalog.Controllers
         {
             db = context;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            
+            return View(await db.Footballers.ToListAsync());
         }
 
-        public IActionResult Privacy()
+        public IActionResult Add()
         {
+            
             return View();
         }
 
