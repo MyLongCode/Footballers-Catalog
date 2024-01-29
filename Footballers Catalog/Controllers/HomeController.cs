@@ -24,6 +24,37 @@ namespace Footballers_Catalog.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id != null)
+            {
+                Footballer? footballer = await db.Footballers.FirstOrDefaultAsync(p => p.Id == id);
+                if (footballer != null)
+                {
+                    db.Footballers.Remove(footballer);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("List");
+                }
+            }
+            return NotFound();
+        }
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id != null)
+            {
+                Footballer? footballer = await db.Footballers.FirstOrDefaultAsync(p => p.Id == id);
+                if (footballer != null) return View(footballer);
+            }
+            return NotFound();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(Footballer footballer)
+        {
+            db.Footballers.Update(footballer);
+            await db.SaveChangesAsync();
+            return RedirectToAction("List");
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
