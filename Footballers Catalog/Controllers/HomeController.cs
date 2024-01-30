@@ -49,8 +49,9 @@ namespace Footballers_Catalog.Controllers
             return NotFound();
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(Footballer footballer)
+        public async Task<IActionResult> Edit(int id, string firstname, string lastname, Sex sex, Country country, string teamname)
         {
+            var footballer = new Footballer(id, firstname, lastname, sex, country, teamname);
             db.Footballers.Update(footballer);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");

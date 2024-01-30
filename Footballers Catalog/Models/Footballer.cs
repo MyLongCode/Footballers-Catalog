@@ -27,5 +27,14 @@
             Country = country;
             TeamName = teamName;
         }
+        public Footballer(int id, string firstName, string lastName, Sex sex, Country country, string teamName)
+        {
+            Id = id;
+            FirstName = firstName;
+            LastName = lastName;
+            Sex = sex;
+            Country = country;
+            TeamName = teamName;
+        }
     }
 }
