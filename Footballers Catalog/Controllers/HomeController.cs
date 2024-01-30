@@ -34,7 +34,7 @@ namespace Footballers_Catalog.Controllers
                 {
                     db.Footballers.Remove(footballer);
                     await db.SaveChangesAsync();
-                    return RedirectToAction("List");
+                    return RedirectToAction("Index");
                 }
             }
             return NotFound();

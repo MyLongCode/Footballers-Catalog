@@ -1,0 +1,26 @@
+﻿
+@model IEnumerable<Footballer>
+
+<h2>Список футболистов</h2>
+<table class="table">
+     <tr><th>ID</th><th>Имя</th><th>Фамилия</th><th>Пол</th><th>Страна</th><th>Команда</th></tr>
+    @foreach (var item in Model)
+    {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                    <td>@item.Sex</td>
+                    <td>@item.Country</td>
+                    <td>@item.TeamName</td>
+                        <td>
+                            <a asp-action="Edit" asp-controller="Home" asp-route-id="@item.Id">Изменить</a>
+                        </td>
+                        <td>
+                            <form asp-controller="Home" asp-action="Delete" method="post"  asp-route-id="@item.Id">
+                                <input type="submit" value="Удалить" />
+                            </form>
+                        </td>
+                </tr>
+    }
+</table>
