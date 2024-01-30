@@ -1,26 +1,36 @@
-﻿
-@model IEnumerable<Footballer>
+﻿@model Footballer
 
-<h2>Список футболистов</h2>
-<table class="table">
-     <tr><th>ID</th><th>Имя</th><th>Фамилия</th><th>Пол</th><th>Страна</th><th>Команда</th></tr>
-    @foreach (var item in Model)
-    {
-                <tr>
-                    <td>@item.Id</td>
-                    <td>@item.FirstName</td>
-                    <td>@item.LastName</td>
-                    <td>@item.Sex</td>
-                    <td>@item.Country</td>
-                    <td>@item.TeamName</td>
-                        <td>
-                            <a asp-action="Edit" asp-controller="Home" asp-route-id="@item.Id">Изменить</a>
-                        </td>
-                        <td>
-                            <form asp-controller="Home" asp-action="Delete" method="post"  asp-route-id="@item.Id">
-                                <input type="submit" value="Удалить" />
-                            </form>
-                        </td>
-                </tr>
-    }
-</table>
+<h2>Редактирование пользователя</h2>
+<form asp-action="Edit" asp-controller="Home" asp-route-id="@Model.Id">
+    <p>
+        <label asp-for="FirstName">Имя</label><br />
+        <input type="text" asp-for="FirstName" />
+    </p>
+    <p>
+        <label asp-for="LastName">Фамилия</label><br />
+        <input type="text" asp-for="LastName" />
+    </p>
+    <p>
+        <label asp-for="Sex">Пол</label><br />
+        <select asp-for="Sex">
+            <option value="@Sex.Male">Male</option>
+            <option value="@Sex.Female">Female</option>
+        </select>
+    </p>
+    <p>
+        <label asp-for="Country">Страна</label><br />
+        <select asp-for="Country">
+            <option value="">Выберите страну</option>
+            <option value="@Country.USA">USA</option>
+            <option value="@Country.Russia">Russia</option>
+            <option value="@Country.Italy">Italy</option>
+        </select>
+    </p>
+    <p>
+        <label asp-for="TeamName">Команда</label><br />
+        <input type="text" asp-for="TeamName" />
+    </p>
+    <p>
+        <input type="submit" value="Сохранить" />
+    </p>
+</form>

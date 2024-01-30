@@ -53,7 +53,7 @@ namespace Footballers_Catalog.Controllers
         {
             db.Footballers.Update(footballer);
             await db.SaveChangesAsync();
-            return RedirectToAction("List");
+            return RedirectToAction("Index");
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
