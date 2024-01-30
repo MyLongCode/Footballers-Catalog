@@ -19,7 +19,8 @@
         public Sex Sex { get; set; }
         public DateTime Birthday { get; set; }
         public Country Country { get; set; }
-
+        public string TeamName { get; set; }
+        public Team? Team { get; set; }
         public Footballer(string firstName, string lastName, Sex sex, DateTime birthday,Country country, string teamName)
         {
             FirstName = firstName;
