@@ -3,7 +3,7 @@
 
 <h2>Список футболистов</h2>
 <table class="table">
-     <tr><th>ID</th><th>Имя</th><th>Фамилия</th><th>Пол</th><th>Страна</th><th>Команда</th></tr>
+     <tr><th>ID</th><th>Имя</th><th>Фамилия</th><th>Пол</th><th>Дата рождения</th><th>Страна</th><th>Команда</th></tr>
     @foreach (var item in Model)
     {
                 <tr>
@@ -11,6 +11,7 @@
                     <td>@item.FirstName</td>
                     <td>@item.LastName</td>
                     <td>@item.Sex</td>
+                    <td>@item.Birthday.ToString("dd.MM.yyyy")</td>
                     <td>@item.Country</td>
                     <td>@item.TeamName</td>
                         <td>

@@ -25,9 +25,9 @@ namespace Footballers_Catalog.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(string firstname, string lastname, Sex sex, Country country, string teamname)
+        public async Task<IActionResult> Create(string firstname, string lastname, Sex sex, DateTime birthday, Country country, string teamname)
         {
-            var footballer = new Footballer(firstname, lastname, sex, country, teamname);
+            var footballer = new Footballer(firstname, lastname, sex,birthday, country, teamname);
             db.Footballers.Add(footballer);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -58,9 +58,9 @@ namespace Footballers_Catalog.Controllers
             return NotFound();
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, string firstname, string lastname, Sex sex, Country country, string teamname)
+        public async Task<IActionResult> Edit(int id, string firstname, string lastname, Sex sex, DateTime birthday, Country country, string teamname)
         {
-            var footballer = new Footballer(id, firstname, lastname, sex, country, teamname);
+            var footballer = new Footballer(id, firstname, lastname, sex,birthday, country, teamname);
             db.Footballers.Update(footballer);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
