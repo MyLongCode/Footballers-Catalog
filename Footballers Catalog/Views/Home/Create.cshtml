@@ -20,7 +20,6 @@
     <p>
         <label asp-for="Country">Страна</label><br />
         <select asp-for="Country">
-            <option value="">Выберите страну</option>
             <option value="@Country.USA">USA</option>
             <option value="@Country.Russia">Russia</option>
             <option value="@Country.Italy">Italy</option>
@@ -28,9 +27,33 @@
     </p>
     <p>
         <label asp-for="TeamName">Команда</label><br />
-        <input type="text" asp-for="TeamName" />
+        <select asp-for="TeamName" id="teamSelection">
+        @foreach (var item in @ViewBag.Teams){
+            <option value="@item.Name">@item.Name</option>
+        }
+        <option value="other_team_vote">Выбрать другую</option>
+        </select>
+        <div id="customTeamContainer" style="display: none;">
+            <label asp-for="TeamName">Введите название своей команды:</label>
+            <input type="text" asp-for="TeamName" id="teamInput"/>
+        </div>
+        
     </p>
     <p>
         <input type="submit" value="Сохранить" />
     </p>
 </form>
+
+@section scripts {
+        <script>
+            $(document).ready(function() {
+                $('#teamSelection').change(function() {
+                    if ($(this).val() === 'other_team_vote') {
+                        $('#customTeamContainer').show();
+                    } else {
+                        $('#customTeamContainer').hide();
+                    }
+                });
+            });
+        </script>
+}

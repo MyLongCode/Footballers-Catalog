@@ -5,5 +5,10 @@ namespace Footballers_Catalog.Models
     {
         public string Name { get; set; }
         public List<Footballer> Footballers { get; set; }
+
+        public Team(string name)
+        {
+            Name = name;
+        }
     }
 }

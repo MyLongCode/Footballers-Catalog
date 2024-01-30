@@ -13,24 +13,21 @@
     </p>
     <p>
         <label asp-for="Sex">Пол</label><br />
-        <select asp-for="Sex">
-            <option value="@Sex.Male">Male</option>
-            <option value="@Sex.Female">Female</option>
-        </select>
+        <select asp-for="Sex" asp-items="Html.GetEnumSelectList<Sex>()"></select>
     </p>
     <input type="date" asp-for="Birthday"    />
     <p>
         <label asp-for="Country">Страна</label><br />
-        <select asp-for="Country">
-            <option value="">Выберите страну</option>
-            <option value="@Country.USA">USA</option>
-            <option value="@Country.Russia">Russia</option>
-            <option value="@Country.Italy">Italy</option>
-        </select>
+        <select asp-for="Country" asp-items="Html.GetEnumSelectList<Country>()"></select>
     </p>
     <p>
         <label asp-for="TeamName">Команда</label><br />
-        <input type="text" asp-for="TeamName" />
+        @foreach (var item in ViewBag.Teams)
+        {
+                    <select asp-for="TeamName" value="@item.Name">@item.Name</select>
+        }
+
+    </p>
     </p>
     <p>
         <input type="submit" value="Сохранить" />

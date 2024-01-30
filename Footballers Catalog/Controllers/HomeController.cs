@@ -20,13 +20,15 @@ namespace Footballers_Catalog.Controllers
 
         public async Task<IActionResult> Create()
         {
-            
+            ViewBag.Teams = await db.Teams.ToListAsync();
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(string firstname, string lastname, Sex sex, DateTime birthday, Country country, string teamname)
         {
+            Team? team = await db.Teams.FirstOrDefaultAsync(t => t.Name == teamname);
+            if (team == null) db.Teams.Add(new Team(teamname));
             var footballer = new Footballer(firstname, lastname, sex,birthday, country, teamname);
             db.Footballers.Add(footballer);
             await db.SaveChangesAsync();
@@ -53,6 +55,7 @@ namespace Footballers_Catalog.Controllers
             if (id != null)
             {
                 Footballer? footballer = await db.Footballers.FirstOrDefaultAsync(p => p.Id == id);
+                ViewBag.Teams = await db.Teams.ToListAsync();
                 if (footballer != null) return View(footballer);
             }
             return NotFound();
