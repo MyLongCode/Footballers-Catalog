@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Security.AccessControl;
 
 namespace Footballers_Catalog.Controllers
 {
@@ -65,8 +66,13 @@ namespace Footballers_Catalog.Controllers
             return NotFound();
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, string firstname, string lastname, Sex sex, DateTime birthday, Country country, string teamname)
+        public async Task<IActionResult> Edit(int id, string firstname, string lastname, Sex sex, DateTime birthday, Country country, string teamname, string? customName)
         {
+            if (customName != null && customName != "")
+            {
+                db.Teams.Add(new Team(customName));
+                teamname = customName;
+            }
             var footballer = new Footballer(id, firstname, lastname, sex,birthday, country, teamname);
             db.Footballers.Update(footballer);
             await db.SaveChangesAsync();
