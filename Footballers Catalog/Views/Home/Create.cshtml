@@ -3,58 +3,53 @@
 <form asp-action="Create" asp-controller="Home" >
     <p>
         <label asp-for="FirstName">Имя</label><br />
-        <input type="text" asp-for="FirstName" />
+        <input type="text" asp-for="FirstName" required/>
     </p>
     <p>
         <label asp-for="LastName">Фамилия</label><br />
-        <input type="text" asp-for="LastName" />
+        <input type="text" asp-for="LastName" required />
     </p>
     <p>
         <label asp-for="Sex">Пол</label><br />
-        <select asp-for="Sex">
-            <option value="@Sex.Male">Male</option>
-            <option value="@Sex.Female">Female</option>
-        </select>
+        <select asp-for="Sex" asp-items="Html.GetEnumSelectList<Sex>()"></select>
     </p>
     <input type="date" asp-for="Birthday"    />
     <p>
         <label asp-for="Country">Страна</label><br />
-        <select asp-for="Country">
-            <option value="@Country.USA">USA</option>
-            <option value="@Country.Russia">Russia</option>
-            <option value="@Country.Italy">Italy</option>
-        </select>
+        <select asp-for="Country" asp-items="Html.GetEnumSelectList<Country>()"></select>
     </p>
     <p>
         <label asp-for="TeamName">Команда</label><br />
-        <select asp-for="TeamName" id="teamSelection">
+        <select asp-for="TeamName" id="teamSelection" onchange="toggleCustomTeamInput(this)">
         @foreach (var item in @ViewBag.Teams){
             <option value="@item.Name">@item.Name</option>
         }
-        <option value="other_team_vote">Выбрать другую</option>
+        <option value="other_team">Выбрать другую</option>
         </select>
         <div id="customTeamContainer" style="display: none;">
-            <label asp-for="TeamName">Введите название своей команды:</label>
-            <input type="text" asp-for="TeamName" id="teamInput"/>
+            <label asp-for="TeamName">Введите название команды:</label>
+            <input type="text" name="customName"/>
         </div>
         
     </p>
     <p>
-        <input type="submit" value="Сохранить" />
+        <input type="submit" value="Создать" />
     </p>
 </form>
 
 @section scripts {
         <script>
-            $(document).ready(function() {
-                $('#teamSelection').change(function() {
-                    if ($(this).val() === 'other_team_vote') {
-                        $('#customTeamContainer').show();
-                    } else {
-                        $('#customTeamContainer').hide();
+            var customTeamSelect = document.getElementById("teamSelection");
+            var customTeamInput = document.getElementById("teamInput");
+               function toggleCustomTeamInput() {
+                    if (customTeamSelect.value === "other_team"){
+                            document.getElementById("customTeamContainer").style.display = 'block';
                     }
-                });
-            });
+                        if (customTeamSelect.value !== "other_team"){
+                                document.getElementById("customTeamContainer").style.display = 'none';
+                                customTeamInput.value = '';
+                        }
+                }
 
         </script>
 }

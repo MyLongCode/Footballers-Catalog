@@ -25,10 +25,14 @@ namespace Footballers_Catalog.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(string firstname, string lastname, Sex sex, DateTime birthday, Country country, string teamname)
+        public async Task<IActionResult> Create(string firstname, string lastname, Sex sex, DateTime birthday, Country country, string teamname, string? customName)
         {
+            if (customName != null && customName != "")
+            {
+                db.Teams.Add(new Team(customName));
+                teamname = customName;
+            }
             Team? team = await db.Teams.FirstOrDefaultAsync(t => t.Name == teamname);
-            if (team == null) db.Teams.Add(new Team(teamname));
             var footballer = new Footballer(firstname, lastname, sex,birthday, country, teamname);
             db.Footballers.Add(footballer);
             await db.SaveChangesAsync();

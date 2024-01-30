@@ -2,8 +2,8 @@
 {
     public enum Country : byte
     {
-        USA,
         Russia,
+        USA,
         Italy
     }
     public enum Sex : byte
