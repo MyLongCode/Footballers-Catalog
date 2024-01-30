@@ -41,14 +41,18 @@
         <script>
             var customTeamSelect = document.getElementById("teamSelection");
             var customTeamInput = document.getElementById("teamInput");
+            var customContainer = document.getElementById("customTeamContainer");
+            if (customTeamSelect.length === 1){
+                customContainer.style.display = 'block';
+            }
                function toggleCustomTeamInput() {
                     if (customTeamSelect.value === "other_team"){
-                            document.getElementById("customTeamContainer").style.display = 'block';
+                        customContainer.style.display = 'block';
                     }
-                        if (customTeamSelect.value !== "other_team"){
-                                document.getElementById("customTeamContainer").style.display = 'none';
-                                customTeamInput.value = '';
-                        }
+                    if (customTeamSelect.value !== "other_team"){
+                        customContainer.style.display = 'none';
+                        customTeamInput.value = '';
+                    }
                 }
 
         </script>
