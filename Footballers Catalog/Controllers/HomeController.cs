@@ -18,10 +18,19 @@ namespace Footballers_Catalog.Controllers
             return View(await db.Footballers.ToListAsync());
         }
 
-        public IActionResult Add()
+        public async Task<IActionResult> Create()
         {
             
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(string firstname, string lastname, Sex sex, Country country, string teamname)
+        {
+            var footballer = new Footballer(firstname, lastname, sex, country, teamname);
+            db.Footballers.Add(footballer);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
