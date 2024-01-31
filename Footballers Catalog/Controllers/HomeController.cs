@@ -11,8 +11,9 @@ namespace Footballers_Catalog.Controllers
     {
         ApplicationContext db;
         private readonly IHubContext<FootballerHub> _hubContext;
-        public HomeController(ApplicationContext context)
+        public HomeController(IHubContext<FootballerHub> hubContext, ApplicationContext context)
         {
+            _hubContext = hubContext;
             db = context;
         }
         public async Task<IActionResult> Index()
@@ -39,7 +40,10 @@ namespace Footballers_Catalog.Controllers
             var footballer = new Footballer(firstname, lastname, sex,birthday, country, teamname);
             db.Footballers.Add(footballer);
             await db.SaveChangesAsync();
-            await _hubContext.Clients.All.SendAsync("ReceiveMessage", footballer);
+            await _hubContext.Clients.All.SendAsync("Receive", 
+                footballer.Id.ToString(), footballer.FirstName,
+                footballer.LastName, footballer.Sex.ToString(), footballer.Country.ToString(),
+                footballer.Birthday.ToString("dd.MM.yyyy"), footballer.TeamName);
             return RedirectToAction("Index");
         }
 
@@ -79,7 +83,6 @@ namespace Footballers_Catalog.Controllers
             var footballer = new Footballer(id, firstname, lastname, sex,birthday, country, teamname);
             db.Footballers.Update(footballer);
             await db.SaveChangesAsync();
-            await _hubContext.Clients.All.SendAsync("ReceiveMessage", footballer);
             return RedirectToAction("Index");
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
