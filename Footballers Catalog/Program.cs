@@ -14,7 +14,7 @@ string connection = builder.Configuration.GetConnectionString("DefaultConnection
 
 // добавляем контекст ApplicationContext в качестве сервиса в приложение
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
-
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -32,7 +32,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
+app.MapHub<FootballerHub>("/footballersHub");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

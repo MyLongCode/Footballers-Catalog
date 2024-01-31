@@ -1,5 +1,6 @@
 ﻿using Footballers_Catalog.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Security.AccessControl;
@@ -9,6 +10,7 @@ namespace Footballers_Catalog.Controllers
     public class HomeController : Controller
     {
         ApplicationContext db;
+        private readonly IHubContext<FootballerHub> _hubContext;
         public HomeController(ApplicationContext context)
         {
             db = context;
@@ -37,6 +39,7 @@ namespace Footballers_Catalog.Controllers
             var footballer = new Footballer(firstname, lastname, sex,birthday, country, teamname);
             db.Footballers.Add(footballer);
             await db.SaveChangesAsync();
+            await _hubContext.Clients.All.SendAsync("ReceiveMessage", footballer);
             return RedirectToAction("Index");
         }
 
@@ -76,6 +79,7 @@ namespace Footballers_Catalog.Controllers
             var footballer = new Footballer(id, firstname, lastname, sex,birthday, country, teamname);
             db.Footballers.Update(footballer);
             await db.SaveChangesAsync();
+            await _hubContext.Clients.All.SendAsync("ReceiveMessage", footballer);
             return RedirectToAction("Index");
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
